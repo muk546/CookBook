@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -145,7 +144,8 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
+            //using a switch statement to switch btw our two tabs
+
 
             switch (position) {
                 case 0:
@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
             public int getCount() {
-                // Show 3 total pages.
+                // Show 2 total pages.
                 return 2;
             }
 
