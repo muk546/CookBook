@@ -1,6 +1,4 @@
 package com.example.keshar.cookbook;
-
-import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,7 +10,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,9 +17,25 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
+
+/**
+ * Created by mukul on 12/30/16.
+ * This will walk user through creating the recipie
+ * notes:
+ * 1) user will list ingredients required
+ * 2) user will list cookware required
+ * 3) user will list time required and serving information (calorie count estimate?)
+ * 4) user will type in steps and will be able to attach photos (hopefully inline)
+ * 5) user clicks publish
+ */
+
+
+public class CreateRecipe extends AppCompatActivity {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -42,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_create_recipe);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -57,27 +70,11 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
+        EditText txt = (EditText) findViewById(R.id.txt_step1_input);
+        ListView list = (ListView) findViewById(R.id.list_step1);
+        Button add = (Button)findViewById(R.id.btn_step1_add);
 
-    }
-
-    //
-
-    public void create_new_res(View v){
-        Log.v("Button for create", "Recipie");
-
-        //startActivity(new Intent(MainActivity.this, CreateRecipe.class));
-
-        Intent intent = new Intent (MainActivity.this, CreateRecipe.class);
-        startActivity(intent);
 
     }
 
@@ -85,15 +82,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_create_recipe, menu);
         return true;
-
     }
-
-
-
-
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -111,44 +102,92 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public static class Fragment0 extends Fragment {
+
+    //the steps (each a fragment)
+    // i'm trying not to use third party libraries so this is the best nataive way I could think of to do this
+
+    public static class FragmentStep_1 extends Fragment {
         /**
          * The fragment argument representing the section number for this
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
 
-        public Fragment0() {
+        public FragmentStep_1() {
         }
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+            View rootView = inflater.inflate(R.layout.fragment_step1, container, false);
+
             return rootView;
+
+
+
+
         }
+
+        Button add;
+        //create array list for ingre list
+
+
+
+
+
+        ArrayList<String> addArray = new ArrayList<String>();
+
+
+
+
+
+
+
+
+
     }
 
 
-
-
-    public static class Fragment1 extends Fragment {
+    public static class FragmentStep_2 extends Fragment {
         /**
          * The fragment argument representing the section number for this
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
 
-        public Fragment1() {
+        public FragmentStep_2() {
         }
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_recipes, container, false);
+            View rootView = inflater.inflate(R.layout.fragment_step2, container, false);
             return rootView;
         }
     }
+
+
+    public static class FragmentStep_3 extends Fragment {
+        /**
+         * The fragment argument representing the section number for this
+         * fragment.
+         */
+        private static final String ARG_SECTION_NUMBER = "section_number";
+
+        public FragmentStep_3() {
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment_step3, container, false);
+            return rootView;
+        }
+    }
+
+
+    //end fragments
+
 
 
     /**
@@ -161,8 +200,6 @@ public class MainActivity extends AppCompatActivity {
             super(fm);
         }
 
-        //changed from temp
-        //useing if statements
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
@@ -172,10 +209,13 @@ public class MainActivity extends AppCompatActivity {
             switch (position) {
                 case 0:
                     //page 1
-                    return new Fragment0();
+                    return new CreateRecipe.FragmentStep_1();
                 case 1:
                     //page 2
-                    return new Fragment1();
+                    return new CreateRecipe.FragmentStep_2();
+                case 2:
+                    //page 2
+                    return new CreateRecipe.FragmentStep_3();
 
             }
             //nothing
@@ -183,29 +223,22 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-            public int getCount() {
-                // Show 2 total pages.
-                return 2;
-            }
-
-            //Get tabbed pos
-            //user switches to home tab and their saved recipies
-            @Override
-            public CharSequence getPageTitle(int position){
-                switch (position) {
-                    case 0:
-                        return "Home";
-                    case 1:
-                        return "My Recipes";
-                }
-                return null;
-            }
+        public int getCount() {
+            // Show 3 total pages.
+            return 3;
         }
 
-
-
-
-
-
+        @Override
+        public CharSequence getPageTitle(int position) {
+            switch (position) {
+                case 0:
+                    return "Step 1";
+                case 1:
+                    return "Step 2";
+                case 2:
+                    return "Step 3";
+            }
+            return null;
+        }
     }
-
+}
