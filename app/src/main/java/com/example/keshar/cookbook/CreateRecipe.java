@@ -28,7 +28,7 @@ import java.util.ArrayList;
 
 /**
  * Created by mukul on 12/30/16.
- * This will walk user through creating the recipie
+ * This will walk user through creating the recipe
  * notes:
  * 1) user will list ingredients required
  * 2) user will list cookware required

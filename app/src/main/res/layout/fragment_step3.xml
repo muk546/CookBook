@@ -1,11 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
-        android:text="3"
+        android:text="Cooking time?"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView4" />
-</LinearLayout>
+        android:id="@+id/textView4"
+        android:textAlignment="center"
+        android:textSize="24sp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="time"
+        android:ems="10"
+        android:layout_below="@+id/textView4"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:id="@+id/txt_step3_input_time"
+        android:hint="Enter Cooking Time"
+        android:textAlignment="center" />
+
+    <TextView
+        android:text="Serves?"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19dp"
+        android:id="@+id/textView5"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:layout_below="@+id/txt_step3_input_time"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:layout_below="@+id/textView5"
+        android:layout_alignStart="@+id/txt_step3_input_time"
+        android:layout_marginTop="16dp"
+        android:id="@+id/editText2"
+        android:hint="Enter Number Of Servings" />
+
+    <TextView
+        android:text="How Many Calories?"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp"
+        android:id="@+id/textView6"
+        android:textSize="24sp" />
+
+    <TextView
+        android:text="HINT: this one is optional"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/textView7" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:layout_below="@+id/textView7"
+        android:layout_alignEnd="@+id/editText2"
+        android:layout_marginTop="22dp"
+        android:id="@+id/editText3" />
+
+</RelativeLayout>
