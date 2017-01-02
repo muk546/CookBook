@@ -37,6 +37,17 @@
         android:layout_below="@+id/txt_step1_input"
         android:id="@+id/list_step1" />
 
+    <Button
+        android:text="Add to List"
+        android:onClick="add_too_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_step1_add"
+        android:layout_alignBaseline="@+id/txt_step1_input"
+        android:layout_alignBottom="@+id/txt_step1_input"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="12dp" />
+
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -48,15 +59,5 @@
         android:layout_marginTop="24dp"
         android:layout_below="@+id/txt_enter"
         android:layout_alignParentStart="true" />
-
-    <Button
-        android:text="Add to List"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_step1_add"
-        android:layout_alignBaseline="@+id/txt_step1_input"
-        android:layout_alignBottom="@+id/txt_step1_input"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="12dp" />
 
 </RelativeLayout>

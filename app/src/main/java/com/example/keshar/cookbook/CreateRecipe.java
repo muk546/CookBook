@@ -10,16 +10,19 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -70,16 +73,81 @@ public class CreateRecipe extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
+/*
+        //code for step 1 here:
+
+        //create array list for ingredients list
+
+        ListView list = (ListView) findViewById(R.id.list_step1);
+        Button btn = (Button) findViewById(R.id.btn_step1_add);
+
+        //String input = txt.getText().toString();
+
+        btn.setOnClickListener(new View.OnClickListener()
+                               {
+                                   public void onClick(View v)
+                                   {
+
+                                       ArrayList<String> addArray = new ArrayList<String>();
+                                       EditText txt = (EditText) findViewById(R.id.txt_step1_input);
+
+                                       if (1 != 2) {
+                                          // addArray.add(txt.getText().toString().trim());
+                                          // Log.v("Test", addArray.toString());
+                                       }
+
+
+                                   }
+                               }
+        );
+
+*/
+    }
+
+
+
+
+    //create the array list to store our ingridints
+    ArrayList<String> addArray = new ArrayList<String>();
+
+    //method invoked by onlick via the XML
+    public void add_too_list(View v) {
+        Log.v("test","test");
+
+        ListView list = (ListView) findViewById(R.id.list_step1);
+        Button btn = (Button) findViewById(R.id.btn_step1_add);
 
         EditText txt = (EditText) findViewById(R.id.txt_step1_input);
-        ListView list = (ListView) findViewById(R.id.list_step1);
-        Button add = (Button)findViewById(R.id.btn_step1_add);
 
+        //we don't like blank inputs!
+        if (!txt.getText().toString().equals("")) {
+            //throw a toast message error
+            if(addArray.contains(txt.getText().toString()) ){
+                Toast.makeText(CreateRecipe.this,
+                        "ERROR Already In List!, Try Something Else!", Toast.LENGTH_LONG).show();
+                txt.setText("");
+
+            }
+            //finally add it to array list
+            else{
+                addArray.add(txt.getText().toString().trim());
+
+                //clear txt field for next input
+                txt.setText("");
+            }
+
+
+            Log.v("Test", addArray.toString());
+        }
+
+        //set contents of arraylist into the list view so user can see the list
+        list.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, addArray));
 
     }
 
 
-    @Override
+
+        @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_create_recipe, menu);
@@ -107,11 +175,6 @@ public class CreateRecipe extends AppCompatActivity {
     // i'm trying not to use third party libraries so this is the best nataive way I could think of to do this
 
     public static class FragmentStep_1 extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
 
         public FragmentStep_1() {
         }
@@ -123,29 +186,15 @@ public class CreateRecipe extends AppCompatActivity {
 
             return rootView;
 
-
-
-
-        }
-
-        Button add;
-        //create array list for ingre list
-
-
-
-
-
-        ArrayList<String> addArray = new ArrayList<String>();
-
-
-
-
-
-
+            }
 
 
 
     }
+
+
+
+
 
 
     public static class FragmentStep_2 extends Fragment {
