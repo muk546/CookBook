@@ -1,7 +1,8 @@
 package com.example.keshar.cookbook;
+import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.support.design.widget.TabLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -10,6 +11,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,9 +21,11 @@ import android.view.ViewGroup;
 
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.NumberPicker;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -60,6 +64,7 @@ public class CreateRecipe extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_recipe);
 
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
@@ -75,16 +80,28 @@ public class CreateRecipe extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
+
+
+
     }
     //lets next an previous buttons work (eventually want to switch to img view arrows
 
     public void next_btn(View v) {
         mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
+
     }
 
     public void prev_btn(View v) {
         mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
     }
+
+    /*
+    Here lies the code for the steps of the user input. Getting this data and trying to catch errors
+    is important during input, I will use toast to alert users of any input mistakes (such as
+    duplicates).
+     */
+
+
 
 //step 1 code
 
@@ -97,7 +114,6 @@ public class CreateRecipe extends AppCompatActivity {
 
         ListView list = (ListView) findViewById(R.id.list_step1);
         Button btn = (Button) findViewById(R.id.btn_step1_add);
-
         EditText txt = (EditText) findViewById(R.id.txt_step1_input);
 
         //we don't like blank inputs!
@@ -118,7 +134,7 @@ public class CreateRecipe extends AppCompatActivity {
             }
 
 
-            Log.v("Test", addArray.toString());
+            Log.v("Step 1", addArray.toString());
         }
 
         //set contents of arraylist into the list view so user can see the list
@@ -126,6 +142,53 @@ public class CreateRecipe extends AppCompatActivity {
 
     }
 //step 1 code end
+
+    //step 2 code (copy paste from step 1)
+
+    //create the array list to store our cookware
+    ArrayList<String> cookArray = new ArrayList<String>();
+
+    //method invoked by onlick via the XML
+    public void cook_too_list(View v) {
+
+        //rename vars
+        ListView list2 = (ListView) findViewById(R.id.list_step2);
+        Button btn2 = (Button) findViewById(R.id.btn_step2_add);
+        EditText txt2 = (EditText) findViewById(R.id.txt_step2_input);
+
+        // we use the same checks as step 1
+
+        //we don't like blank inputs!
+        if (!txt2.getText().toString().equals("")) {
+            //throw a toast message error
+            if (cookArray.contains(txt2.getText().toString())) {
+                Toast.makeText(CreateRecipe.this,
+                        "ERROR Already In List!, Try Something Else!", Toast.LENGTH_LONG).show();
+                txt2.setText("");
+
+            }
+            //finally add it to array list
+            else {
+                cookArray.add(txt2.getText().toString().trim());
+
+                //clear txt field for next input
+                txt2.setText("");
+            }
+
+
+            Log.v("Step 2", cookArray.toString());
+        }
+
+        //set contents of arraylist into the list view so user can see the list
+        list2.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, cookArray));
+
+    }
+    //step 2 code end
+
+
+
+
+
 
 
     @Override
@@ -177,7 +240,6 @@ public class CreateRecipe extends AppCompatActivity {
          * The fragment argument representing the section number for this
          * fragment.
          */
-        private static final String ARG_SECTION_NUMBER = "section_number";
 
         public FragmentStep_2() {
         }
@@ -190,13 +252,11 @@ public class CreateRecipe extends AppCompatActivity {
         }
     }
 
-
     public static class FragmentStep_3 extends Fragment {
         /**
          * The fragment argument representing the section number for this
          * fragment.
          */
-        private static final String ARG_SECTION_NUMBER = "section_number";
 
         public FragmentStep_3() {
         }
@@ -205,6 +265,40 @@ public class CreateRecipe extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_step3, container, false);
+            return rootView;
+
+
+
+        }
+    }
+
+
+
+    public void num_too_list(View v) {
+        NumberPicker np2;
+        np2 = (NumberPicker) findViewById(R.id.np_hero);
+        //get the number pickers
+        np2.setMinValue(1);
+        np2.setMaxValue(10);
+
+        np2.setWrapSelectorWheel(false);
+
+    }
+
+
+    public static class FragmentStep_4 extends Fragment {
+        /**
+         * The fragment argument representing the section number for this
+         * fragment.
+         */
+
+        public FragmentStep_4() {
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment_step4, container, false);
             return rootView;
         }
     }
@@ -237,9 +331,22 @@ public class CreateRecipe extends AppCompatActivity {
                     //page 2
                     return new CreateRecipe.FragmentStep_2();
                 case 2:
-                    //page 2
+                    //page 3
                     return new CreateRecipe.FragmentStep_3();
+                case 3:
+                    //page 4
+                    return new CreateRecipe.FragmentStep_4();
 
+            }
+
+            if(position == 2){
+                NumberPicker np2;
+                np2 = (NumberPicker) findViewById(R.id.np_hero);
+                //get the number pickers
+                np2.setMinValue(1);
+                np2.setMaxValue(10);
+
+                np2.setWrapSelectorWheel(false);
             }
             //nothing
             return null;
@@ -248,8 +355,8 @@ public class CreateRecipe extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 3;
+            // Show 4 total pages.
+            return 4;
         }
 
         //displaying information here is redundant so it's blank to allow for the bar to do the work
@@ -261,6 +368,8 @@ public class CreateRecipe extends AppCompatActivity {
                 case 1:
                     return "";
                 case 2:
+                    return "";
+                case 3:
                     return "";
             }
             return null;

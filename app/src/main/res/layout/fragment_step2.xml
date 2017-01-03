@@ -16,6 +16,7 @@
 
     <Button
         android:text="ADD TO LIST"
+        android:onClick="cook_too_list"
         android:layout_width="129dp"
         android:layout_height="wrap_content"
         android:id="@+id/btn_step2_add"
@@ -39,6 +40,6 @@
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/btn_step2_add"
-        android:layout_above="@+id/textView3" />
+        android:id="@+id/list_step2" />
 
 </RelativeLayout>
