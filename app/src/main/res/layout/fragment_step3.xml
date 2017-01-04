@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+
 
     <TextView
         android:text="How Many Servings?"
@@ -14,25 +16,6 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/editText2"
-        android:hint="Enter Number Of Servings"
-        android:layout_marginTop="23dp"
-        android:layout_below="@+id/textView5"
-        android:layout_alignStart="@+id/textView5" />
-
-    <NumberPicker
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView4"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="38dp"
-        android:id="@+id/np_hero" />
-
     <TextView
         android:text="Cooking time?"
         android:layout_width="match_parent"
@@ -41,18 +24,43 @@
         android:textAlignment="center"
         android:textSize="24sp"
         android:layout_marginTop="38dp"
-        android:layout_below="@+id/editText2"
+        android:layout_below="@+id/txt_serve_step3"
         android:layout_alignParentStart="true" />
 
     <Button
-        android:text="Button"
+        android:id="@+id/btn_step3_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="num_too_list"
-        android:layout_alignParentBottom="true"
+        android:onClick="show"
+        android:text="Edit Cooking Time"
+        android:layout_below="@+id/textView4"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="43dp"
-        android:id="@+id/button" />
+        android:layout_marginTop="67dp" />
+
+    <TextView
+        android:id="@+id/tv_time_step3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView4"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:onClick="show"
+        android:textSize="18sp"
+        android:textAlignment="center"
+        android:textStyle="normal|bold"
+        android:text="Click The Button:" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/txt_serve_step3"
+        android:hint="Enter Number Of Servings"
+        android:onClick="show2"
+        android:layout_marginTop="14dp"
+        android:layout_below="@+id/textView5"
+        android:layout_alignStart="@+id/textView5" />
 
 
 </RelativeLayout>

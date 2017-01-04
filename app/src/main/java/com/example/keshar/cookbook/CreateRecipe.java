@@ -1,8 +1,5 @@
 package com.example.keshar.cookbook;
 import android.app.Dialog;
-import android.app.TimePickerDialog;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -11,7 +8,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,14 +17,15 @@ import android.view.ViewGroup;
 
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.NumberPicker;
-import android.widget.TimePicker;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+
+import static java.lang.Integer.valueOf;
 
 /**
  * Created by mukul on 12/30/16.
@@ -42,7 +39,14 @@ import java.util.ArrayList;
  */
 
 
-public class CreateRecipe extends AppCompatActivity {
+public class CreateRecipe extends AppCompatActivity implements NumberPicker.OnValueChangeListener{
+    private static TextView tv_time_step3;
+    private static EditText txt_serve_step3;
+    static Dialog d ;
+    int input_hours;
+    int input_mins;
+    int input_serve;
+
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -77,13 +81,122 @@ public class CreateRecipe extends AppCompatActivity {
         //keep those tabs alive!
         mViewPager.setOffscreenPageLimit(10);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(mViewPager);
+        tv_time_step3 = (TextView) findViewById(R.id.tv_time_step3);
 
-
+        txt_serve_step3 = (EditText) findViewById(R.id.txt_serve_step3);
 
 
     }
+    @Override
+    public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+
+        Log.v("value is",""+newVal);
+
+    }
+
+    //had to define onclick in XML because reasons...
+    public void show(View view)
+    {
+
+        final Dialog d = new Dialog(CreateRecipe.this);
+        d.setTitle("NumberPicker");
+        d.setContentView(R.layout.dialog);
+        Button btn_done1 = (Button) d.findViewById(R.id.dia_done1);
+        NumberPicker np_hours = (NumberPicker) d.findViewById(R.id.np_hours);
+        NumberPicker np_mins = (NumberPicker) d.findViewById(R.id.np_mins);
+
+        np_hours.setMaxValue(24);
+        np_hours.setMinValue(0);
+        np_hours.setWrapSelectorWheel(false);
+        np_hours.setOnValueChangedListener(this);
+
+        np_mins.setMaxValue(59);
+        np_mins.setMinValue(0);
+        np_mins.setWrapSelectorWheel(false);
+        np_mins.setOnValueChangedListener(this);
+
+        String output_time = "";
+
+
+        np_hours.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal){
+                input_hours = newVal;
+            }
+        });
+
+        np_mins.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal){
+                input_mins = newVal;
+            }
+        });
+
+        btn_done1.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+
+                //display our time so user can double check
+                TextView tv_time_step3 = (TextView) findViewById(R.id.tv_time_step3);
+                tv_time_step3.setText(input_hours + " Hour(s) and " + input_mins + " Minute(s) ");
+
+
+                d.dismiss();
+            }
+        });
+        d.show();
+
+
+    }
+
+
+    //had to define onclick in XML because reasons...
+    public void show2(View view)
+    {
+
+        final Dialog d = new Dialog(CreateRecipe.this);
+        d.setTitle("NumberPicker");
+        d.setContentView(R.layout.dialog2);
+        Button btn_done2 = (Button) d.findViewById(R.id.btn_done2);
+        NumberPicker np_serve = (NumberPicker) d.findViewById(R.id.np_serve);
+
+        np_serve.setMaxValue(100);
+        np_serve.setMinValue(0);
+        np_serve.setWrapSelectorWheel(false);
+
+        np_serve.setOnValueChangedListener(this);
+
+
+
+        np_serve.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal){
+
+                input_serve = newVal;
+
+            }
+        });
+
+
+        btn_done2.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+
+                //display our num so user can double check
+                EditText txt_serve_step3 = (EditText) findViewById(R.id.txt_serve_step3);
+                txt_serve_step3.setText("" + input_serve);
+
+
+                d.dismiss();
+            }
+        });
+        d.show();
+
+
+    }
+
     //lets next an previous buttons work (eventually want to switch to img view arrows
 
     public void next_btn(View v) {
@@ -100,7 +213,6 @@ public class CreateRecipe extends AppCompatActivity {
     is important during input, I will use toast to alert users of any input mistakes (such as
     duplicates).
      */
-
 
 
 //step 1 code
@@ -186,11 +298,6 @@ public class CreateRecipe extends AppCompatActivity {
     //step 2 code end
 
 
-
-
-
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -210,80 +317,95 @@ public class CreateRecipe extends AppCompatActivity {
             return true;
         }
 
-        return super.onOptionsItemSelected(item);
+        return false;
     }
 
+        //the steps (each a fragment)
+        // i'm trying not to use third party libraries so this is the best nataive way I could think of to do this
 
-    //the steps (each a fragment)
-    // i'm trying not to use third party libraries so this is the best nataive way I could think of to do this
+        public static class FragmentStep_1 extends Fragment {
 
-    public static class FragmentStep_1 extends Fragment {
+            public FragmentStep_1() {
+            }
 
-        public FragmentStep_1() {
-        }
+            @Override
+            public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                     Bundle savedInstanceState) {
+                View rootView = inflater.inflate(R.layout.fragment_step1, container, false);
 
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_step1, container, false);
+                return rootView;
 
-            return rootView;
-
-        }
-
-
-    }
-
-
-    public static class FragmentStep_2 extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-
-        public FragmentStep_2() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_step2, container, false);
-            return rootView;
-        }
-    }
-
-    public static class FragmentStep_3 extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-
-        public FragmentStep_3() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_step3, container, false);
-            return rootView;
-
+            }
 
 
         }
-    }
 
 
+        public static class FragmentStep_2 extends Fragment {
+            /**
+             * The fragment argument representing the section number for this
+             * fragment.
+             */
+
+            public FragmentStep_2() {
+            }
+
+            @Override
+            public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                     Bundle savedInstanceState) {
+                View rootView = inflater.inflate(R.layout.fragment_step2, container, false);
+                return rootView;
+            }
+        }
+
+        public static class FragmentStep_3 extends Fragment {
+            /**
+             * The fragment argument representing the section number for this
+             * fragment.
+             */
+
+            public FragmentStep_3() {
+            }
+
+            @Override
+            public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                     Bundle savedInstanceState) {
+                View rootView = inflater.inflate(R.layout.fragment_step3, container, false);
+                return rootView;
+
+
+            }
+        }
+
+    /*
 
     public void num_too_list(View v) {
+
+        Log.v("test", "test");
+
         NumberPicker np2;
         np2 = (NumberPicker) findViewById(R.id.np_hero);
+
         //get the number pickers
         np2.setMinValue(1);
         np2.setMaxValue(10);
-
         np2.setWrapSelectorWheel(false);
 
+        //Set a value change listener for NumberPicker
+        np2.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal){
+                //Display the newly selected number from picker
+                TextView tv = (TextView) findViewById(R.id.tv);
+                tv.setText("Selected Time : " + newVal);
+            }
+        });
+
     }
+
+
+*/
+
 
 
     public static class FragmentStep_4 extends Fragment {
@@ -339,15 +461,7 @@ public class CreateRecipe extends AppCompatActivity {
 
             }
 
-            if(position == 2){
-                NumberPicker np2;
-                np2 = (NumberPicker) findViewById(R.id.np_hero);
-                //get the number pickers
-                np2.setMinValue(1);
-                np2.setMaxValue(10);
 
-                np2.setWrapSelectorWheel(false);
-            }
             //nothing
             return null;
         }
@@ -378,3 +492,5 @@ public class CreateRecipe extends AppCompatActivity {
 
     }
 }
+
+
