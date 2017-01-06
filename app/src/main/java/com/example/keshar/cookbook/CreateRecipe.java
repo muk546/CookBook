@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -83,7 +84,6 @@ public class CreateRecipe extends AppCompatActivity implements NumberPicker.OnVa
 
         tv_time_step3 = (TextView) findViewById(R.id.tv_time_step3);
 
-        txt_serve_step3 = (EditText) findViewById(R.id.txt_serve_step3);
 
 
     }
@@ -95,6 +95,7 @@ public class CreateRecipe extends AppCompatActivity implements NumberPicker.OnVa
     }
 
     //had to define onclick in XML because reasons...
+    //step 3 part 1 begin
     public void show(View view)
     {
 
@@ -141,6 +142,10 @@ public class CreateRecipe extends AppCompatActivity implements NumberPicker.OnVa
                 TextView tv_time_step3 = (TextView) findViewById(R.id.tv_time_step3);
                 tv_time_step3.setText(input_hours + " Hour(s) and " + input_mins + " Minute(s) ");
 
+                //display our time so user can double check
+
+                //removed (for now)
+
 
                 d.dismiss();
             }
@@ -149,8 +154,11 @@ public class CreateRecipe extends AppCompatActivity implements NumberPicker.OnVa
 
 
     }
+    //step 3 part 1 end
 
 
+
+    //step 3 part e begin
     //had to define onclick in XML because reasons...
     public void show2(View view)
     {
@@ -185,8 +193,9 @@ public class CreateRecipe extends AppCompatActivity implements NumberPicker.OnVa
             public void onClick(View v) {
 
                 //display our num so user can double check
-                EditText txt_serve_step3 = (EditText) findViewById(R.id.txt_serve_step3);
-                txt_serve_step3.setText("" + input_serve);
+                //tv_serve_step3
+                TextView tv_serve_step3 = (TextView) findViewById(R.id.tv_serve_step3);
+                tv_serve_step3.setText("" + input_serve);
 
 
                 d.dismiss();
@@ -196,6 +205,7 @@ public class CreateRecipe extends AppCompatActivity implements NumberPicker.OnVa
 
 
     }
+    //step 3 part 2 end
 
     //lets next an previous buttons work (eventually want to switch to img view arrows
 
@@ -297,6 +307,57 @@ public class CreateRecipe extends AppCompatActivity implements NumberPicker.OnVa
     }
     //step 2 code end
 
+    //step 4 code begin
+    //very simliar to step 1 and 2 but with a new UI
+
+    ArrayList<String> FinalArray = new ArrayList<String>();
+    //our step var
+    int increment = 0;
+    String Pure_input;
+    //method invoked by onlick via the XML
+    public void final_list(View v) {
+
+
+
+        //rename vars
+
+        //btn_input_step4
+        ListView list_step4 = (ListView) findViewById(R.id.list_step4);
+        Button btn_input_step4 = (Button) findViewById(R.id.btn_input_step4);
+        EditText txt_input_step4 = (EditText) findViewById(R.id.txt_input_step4);
+
+        // we use the same checks as step 1 & 2
+
+        //we don't like blank inputs!
+        if (!txt_input_step4.getText().toString().equals("")) {
+            //throw a toast message error
+            if (FinalArray.contains(txt_input_step4.getText().toString())) {
+                Toast.makeText(CreateRecipe.this,
+                        "ERROR Already In List!, Try Something Else!", Toast.LENGTH_LONG).show();
+                txt_input_step4.setText("");
+
+            }
+            //finally add it to array list
+            else {
+                //captures the vanilla input without the step string (for later use)
+                Pure_input = txt_input_step4.getText().toString().trim();
+                //raise the step counter by 1 each time
+                increment++;
+                FinalArray.add("Step "+ increment + " : " +txt_input_step4.getText().toString().trim());
+
+                //clear txt field for next input
+                txt_input_step4.setText("");
+            }
+
+
+            Log.v("Step 4", FinalArray.toString());
+        }
+
+        //set contents of arraylist into the list view so user can see the list
+        list_step4.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, FinalArray));
+
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -370,6 +431,11 @@ public class CreateRecipe extends AppCompatActivity implements NumberPicker.OnVa
             @Override
             public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                      Bundle savedInstanceState) {
+
+                //hide keyboard (not needed in this frag)
+                getActivity().getWindow().setSoftInputMode(
+                        WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
                 View rootView = inflater.inflate(R.layout.fragment_step3, container, false);
                 return rootView;
 

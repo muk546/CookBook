@@ -4,8 +4,31 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:text="TextView"
+        android:text="Enter Cooking Directions:"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView6" />
+        android:id="@+id/Main_Hero_Step4"
+        android:textAlignment="center"
+        android:textSize="18sp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/txt_input_step4"
+        android:hint="Type Here"
+        android:textAlignment="center" />
+
+    <Button
+        android:text="Add Step"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="final_list"
+        android:id="@+id/btn_input_step4" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="315dp"
+        android:id="@+id/list_step4" />
 </LinearLayout>
