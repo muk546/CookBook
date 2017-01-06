@@ -40,9 +40,10 @@
         android:text="View Recipe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/dia_done1"
+        android:id="@+id/btn_done_main"
         android:layout_marginTop="44dp"
         android:layout_below="@+id/txt_today_set"
+        android:onClick="today_res"
         android:layout_alignStart="@+id/txt_today_label" />
 
     <Button
@@ -52,7 +53,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/btn_create"
         android:layout_marginTop="86dp"
-        android:layout_below="@+id/dia_done1"
+        android:layout_below="@+id/btn_done_main"
         android:layout_alignEnd="@+id/txt_today_label" />
 
 </RelativeLayout>

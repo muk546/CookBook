@@ -1,0 +1,30 @@
+    just some code i might need later...
+
+    /*
+
+    public void num_too_list(View v) {
+
+        Log.v("test", "test");
+
+        NumberPicker np2;
+        np2 = (NumberPicker) findViewById(R.id.np_hero);
+
+        //get the number pickers
+        np2.setMinValue(1);
+        np2.setMaxValue(10);
+        np2.setWrapSelectorWheel(false);
+
+        //Set a value change listener for NumberPicker
+        np2.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal){
+                //Display the newly selected number from picker
+                TextView tv = (TextView) findViewById(R.id.tv);
+                tv.setText("Selected Time : " + newVal);
+            }
+        });
+
+    }
+
+
+*/

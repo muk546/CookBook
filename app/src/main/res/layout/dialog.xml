@@ -11,7 +11,7 @@
         android:id="@+id/np_mins"
         android:layout_alignBaseline="@+id/np_hours"
         android:layout_alignBottom="@+id/np_hours"
-        android:layout_toEndOf="@+id/dia_done1" />
+        android:layout_toEndOf="@+id/btn_done_main" />
 
     <TextView
         android:text="Hours"
@@ -46,7 +46,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/np_hours"
-        android:layout_alignBottom="@+id/dia_done1"
+        android:layout_alignBottom="@+id/btn_done_main"
         android:layout_toStartOf="@+id/np_mins"
         android:layout_marginEnd="87dp"
         android:layout_marginBottom="102dp" />
@@ -57,7 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="140dp"
         android:layout_marginTop="258dp"
-        android:id="@+id/dia_done1"
+        android:id="@+id/btn_done_main"
         android:layout_below="@+id/textView3"
         android:layout_alignParentStart="true" />
 </RelativeLayout>

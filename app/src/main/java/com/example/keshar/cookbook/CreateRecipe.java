@@ -102,7 +102,7 @@ public class CreateRecipe extends AppCompatActivity implements NumberPicker.OnVa
         final Dialog d = new Dialog(CreateRecipe.this);
         d.setTitle("NumberPicker");
         d.setContentView(R.layout.dialog);
-        Button btn_done1 = (Button) d.findViewById(R.id.dia_done1);
+        Button btn_done1 = (Button) d.findViewById(R.id.btn_done_main);
         NumberPicker np_hours = (NumberPicker) d.findViewById(R.id.np_hours);
         NumberPicker np_mins = (NumberPicker) d.findViewById(R.id.np_mins);
 
@@ -357,6 +357,21 @@ public class CreateRecipe extends AppCompatActivity implements NumberPicker.OnVa
         list_step4.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, FinalArray));
 
     }
+    //end step 4
+
+    /*
+    This will be the code for step 5 which is the most interesting step
+    Since android API 19 we can generate PDF's nativily
+    So we will use this to put all our data togeather and gernerate a shareable recipie document
+    This document will be viewable on ALL PLATFORMS which is the advantage of PDF.
+
+   In the background there will be a database that will store the raw user input allowing user's to
+   go back and edit thier old recipies and this is what will be visible in the My Recipie tab from the main activity
+
+   Step 5 will have a preview of their Recpie (PDF) and the user will be able to save it (so it will go into the database under my recpies) and the PDF copy will be saved as well.
+   The user will be able to eventually share the PDF through various services starting with the easist (email)
+
+     */
 
 
     @Override
@@ -443,34 +458,7 @@ public class CreateRecipe extends AppCompatActivity implements NumberPicker.OnVa
             }
         }
 
-    /*
 
-    public void num_too_list(View v) {
-
-        Log.v("test", "test");
-
-        NumberPicker np2;
-        np2 = (NumberPicker) findViewById(R.id.np_hero);
-
-        //get the number pickers
-        np2.setMinValue(1);
-        np2.setMaxValue(10);
-        np2.setWrapSelectorWheel(false);
-
-        //Set a value change listener for NumberPicker
-        np2.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal){
-                //Display the newly selected number from picker
-                TextView tv = (TextView) findViewById(R.id.tv);
-                tv.setText("Selected Time : " + newVal);
-            }
-        });
-
-    }
-
-
-*/
 
 
 
@@ -491,7 +479,39 @@ public class CreateRecipe extends AppCompatActivity implements NumberPicker.OnVa
         }
     }
 
+    public static class FragmentStep_5 extends Fragment {
+        /**
+         * The fragment argument representing the section number for this
+         * fragment.
+         */
 
+        public FragmentStep_5() {
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment_step5, container, false);
+            return rootView;
+        }
+    }
+
+    public static class FragmentStep_6 extends Fragment {
+        /**
+         * The fragment argument representing the section number for this
+         * fragment.
+         */
+
+        public FragmentStep_6() {
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment_step6, container, false);
+            return rootView;
+        }
+    }
     //end fragments
 
 
@@ -524,6 +544,14 @@ public class CreateRecipe extends AppCompatActivity implements NumberPicker.OnVa
                 case 3:
                     //page 4
                     return new CreateRecipe.FragmentStep_4();
+                case 4:
+                    //page 5
+                    return new CreateRecipe.FragmentStep_5();
+                case 5:
+                    //page 6
+                    return new CreateRecipe.FragmentStep_6();
+
+
 
             }
 
@@ -535,8 +563,8 @@ public class CreateRecipe extends AppCompatActivity implements NumberPicker.OnVa
 
         @Override
         public int getCount() {
-            // Show 4 total pages.
-            return 4;
+            // Show 6 total pages.
+            return 6;
         }
 
         //displaying information here is redundant so it's blank to allow for the bar to do the work
@@ -550,6 +578,10 @@ public class CreateRecipe extends AppCompatActivity implements NumberPicker.OnVa
                 case 2:
                     return "";
                 case 3:
+                    return "";
+                case 4:
+                    return "";
+                case 5:
                     return "";
             }
             return null;

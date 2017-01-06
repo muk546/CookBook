@@ -21,8 +21,11 @@ import android.view.ViewGroup;
 
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+
+
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -43,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -67,9 +72,23 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+
+
     }
 
-    //
+    //onclick in xml
+    public void today_res(View v) {
+        Toast.makeText(MainActivity.this,
+                "This Functionality is coming soon!", Toast.LENGTH_LONG).show();
+    }
+
+
+
+
+
+
+
+        //
 
     public void create_new_res(View v){
         Log.v("Button for create", "Recipie");
@@ -150,6 +169,7 @@ public class MainActivity extends AppCompatActivity {
             return rootView;
         }
     }
+
 
 
     /**
