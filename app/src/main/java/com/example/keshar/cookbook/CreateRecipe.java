@@ -84,8 +84,6 @@ public class CreateRecipe extends AppCompatActivity implements NumberPicker.OnVa
 
         tv_time_step3 = (TextView) findViewById(R.id.tv_time_step3);
 
-
-
     }
     @Override
     public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
@@ -93,6 +91,10 @@ public class CreateRecipe extends AppCompatActivity implements NumberPicker.OnVa
         Log.v("value is",""+newVal);
 
     }
+
+
+
+
 
     //had to define onclick in XML because reasons...
     //step 3 part 1 begin
@@ -396,67 +398,67 @@ public class CreateRecipe extends AppCompatActivity implements NumberPicker.OnVa
         return false;
     }
 
-        //the steps (each a fragment)
-        // i'm trying not to use third party libraries so this is the best nataive way I could think of to do this
+    //the steps (each a fragment)
+    // i'm trying not to use third party libraries so this is the best nataive way I could think of to do this
 
-        public static class FragmentStep_1 extends Fragment {
+    public static class FragmentStep_1 extends Fragment {
 
-            public FragmentStep_1() {
-            }
+        public FragmentStep_1() {
+        }
 
-            @Override
-            public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                     Bundle savedInstanceState) {
-                View rootView = inflater.inflate(R.layout.fragment_step1, container, false);
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment_step1, container, false);
 
-                return rootView;
-
-            }
-
+            return rootView;
 
         }
 
 
-        public static class FragmentStep_2 extends Fragment {
-            /**
-             * The fragment argument representing the section number for this
-             * fragment.
-             */
+    }
 
-            public FragmentStep_2() {
-            }
 
-            @Override
-            public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                     Bundle savedInstanceState) {
-                View rootView = inflater.inflate(R.layout.fragment_step2, container, false);
-                return rootView;
-            }
+    public static class FragmentStep_2 extends Fragment {
+        /**
+         * The fragment argument representing the section number for this
+         * fragment.
+         */
+
+        public FragmentStep_2() {
         }
 
-        public static class FragmentStep_3 extends Fragment {
-            /**
-             * The fragment argument representing the section number for this
-             * fragment.
-             */
-
-            public FragmentStep_3() {
-            }
-
-            @Override
-            public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                     Bundle savedInstanceState) {
-
-                //hide keyboard (not needed in this frag)
-                getActivity().getWindow().setSoftInputMode(
-                        WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-
-                View rootView = inflater.inflate(R.layout.fragment_step3, container, false);
-                return rootView;
-
-
-            }
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment_step2, container, false);
+            return rootView;
         }
+    }
+
+    public static class FragmentStep_3 extends Fragment {
+        /**
+         * The fragment argument representing the section number for this
+         * fragment.
+         */
+
+        public FragmentStep_3() {
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+
+            //hide keyboard (not needed in this frag)
+            getActivity().getWindow().setSoftInputMode(
+                    WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+            View rootView = inflater.inflate(R.layout.fragment_step3, container, false);
+            return rootView;
+
+
+        }
+    }
 
 
 

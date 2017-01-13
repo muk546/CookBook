@@ -20,15 +20,41 @@
         android:hint="Type Here"
         android:textAlignment="center" />
 
-    <Button
-        android:text="Add Step"
-        android:layout_width="match_parent"
+
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:onClick="final_list"
-        android:id="@+id/btn_input_step4" />
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <Button
+            android:id="@+id/btn_input_step4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:background="#F0BF00"
+            android:text="ADD STEP"
+            android:textColor="#FFF"
+            android:textStyle="bold"
+            android:layout_weight="0.50"
+            android:onClick="final_list" />
+
+        <Button
+            android:id="@+id/btn_photo_step4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:background="#F0BF00"
+            android:text="ADD PHOTO"
+            android:textColor="#FFF"
+            android:textStyle="bold"
+            android:layout_weight="0.50" />
+    </LinearLayout>
+
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="315dp"
+        android:layout_height="match_parent"
         android:id="@+id/list_step4" />
 </LinearLayout>
