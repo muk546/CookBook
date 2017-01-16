@@ -26,7 +26,6 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
 
-
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -47,10 +46,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Intent intent = getIntent();
+        String name = intent.getStringExtra("name");
+
+        TextView tv_welcome = (TextView) findViewById(R.id.tv_welcome);
 
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        // Display user details
+       // tv_welcome.setText("Hello, " + name + " Welcome to CookBook");
+
+
+
+   //    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+    //    setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());

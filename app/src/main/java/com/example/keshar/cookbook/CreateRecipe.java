@@ -70,8 +70,6 @@ public class CreateRecipe extends AppCompatActivity implements NumberPicker.OnVa
         setContentView(R.layout.activity_create_recipe);
 
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());

@@ -10,36 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.keshar.cookbook.RegisterActivity">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/txt_username"
-        android:layout_below="@+id/txt_name"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:hint="Username (required)" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:layout_below="@+id/txt_age"
-        android:layout_alignParentStart="true"
-        android:id="@+id/txt_gender"
-        android:layout_alignParentEnd="true"
-        android:hint="Gender" />
-
-    <Button
-        android:text="Register!"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txt_gender"
-        android:layout_alignParentStart="true"
-        android:id="@+id/btn_reg"
-        android:layout_alignParentEnd="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -73,4 +44,23 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:hint="Age" />
+
+    <Button
+        android:text="Register!"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_age"
+        android:layout_alignParentStart="true"
+        android:id="@+id/btn_reg"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:id="@+id/txt_username"
+        android:hint="Username (required)"
+        android:inputType="text"
+        android:layout_below="@+id/txt_name"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>
