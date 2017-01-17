@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,7 +20,12 @@ import org.json.JSONObject;
  * Created by mukul on 1/15/17.
  */
 
+
+
 public class RegisterActivity extends AppCompatActivity {
+
+    //log data
+    String log = "log_RegisterActvity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +39,14 @@ public class RegisterActivity extends AppCompatActivity {
         final Button bRegister = (Button) findViewById(R.id.btn_reg);
 
         bRegister.setOnClickListener(new View.OnClickListener() {
+
+
+
             @Override
             public void onClick(View v) {
+
+                Log.v(log,"button clicked");
+
                 final String name = etName.getText().toString();
                 final String username = etUsername.getText().toString();
                 final int age = Integer.parseInt(etAge.getText().toString());
@@ -46,18 +58,27 @@ public class RegisterActivity extends AppCompatActivity {
                         try {
                             JSONObject jsonResponse = new JSONObject(response);
                             boolean success = jsonResponse.getBoolean("success");
+                            Log.v(log,"step 1");
+
                             if (success) {
                                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                                 RegisterActivity.this.startActivity(intent);
+                                Log.v(log,"step 2");
+
                             } else {
+                                //user name already taken or server is down
                                 AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                                builder.setMessage("Register Failed")
+                                builder.setMessage("Register Failed (username already taken!)")
                                         .setNegativeButton("Retry", null)
                                         .create()
                                         .show();
+                                Log.v(log,"step 3 (failure)");
+
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            Log.v(log,"step 4 (failure)JSONException");
+
                         }
                     }
                 };
