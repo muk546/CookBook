@@ -25,7 +25,7 @@ import org.json.JSONObject;
 public class RegisterActivity extends AppCompatActivity {
 
     //log data
-    String log = "log_RegisterActvity";
+    final String log = "log_RegisterActvity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +39,6 @@ public class RegisterActivity extends AppCompatActivity {
         final Button bRegister = (Button) findViewById(R.id.btn_reg);
 
         bRegister.setOnClickListener(new View.OnClickListener() {
-
-
 
             @Override
             public void onClick(View v) {

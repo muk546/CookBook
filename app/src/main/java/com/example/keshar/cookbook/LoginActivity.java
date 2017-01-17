@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +19,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
+
+    //log data
+    final String log = "log_LoginActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +53,9 @@ public class LoginActivity extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Log.v(log,"Button clicked");
+
                 final String username = txt_username_enter.getText().toString();
                 final String password = txt_password_enter.getText().toString();
 
@@ -59,8 +66,12 @@ public class LoginActivity extends AppCompatActivity {
                         try {
                             JSONObject jsonResponse = new JSONObject(response);
                             boolean success = jsonResponse.getBoolean("success");
+                            Log.v(log,"step 1 looking for responce");
+
 
                             if (success) {
+                                Log.v(log,"step 2 success");
+
                                 String name = jsonResponse.getString("name");
                                 int age = jsonResponse.getInt("age");
 
@@ -70,6 +81,8 @@ public class LoginActivity extends AppCompatActivity {
                                 intent.putExtra("username", username);
                                 LoginActivity.this.startActivity(intent);
                             } else {
+                                Log.v(log,"step 3 login failed");
+
                                 AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
                                 builder.setMessage("Login Failed")
                                         .setNegativeButton("Retry", null)
@@ -78,6 +91,8 @@ public class LoginActivity extends AppCompatActivity {
                             }
 
                         } catch (JSONException e) {
+                            Log.v(log,"step 4 JSONException");
+
                             e.printStackTrace();
                         }
                     }
